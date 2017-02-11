@@ -14,6 +14,8 @@ namespace ProyectoCompra.Models
         public int PersonaID { get; set; }
         public int LibroID { get; set; }
 
+        public int cantidad { get; set; }
+
         public virtual Persona Persona { get; set; }
         public virtual Libro Libro { get; set; }
     }

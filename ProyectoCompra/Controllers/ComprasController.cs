@@ -49,7 +49,7 @@ namespace ProyectoCompra.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="CompraID,PersonaID,LibroID")] Compra compra)
+        public ActionResult Create([Bind(Include="CompraID,PersonaID,LibroID,cantidad")] Compra compra)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace ProyectoCompra.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="CompraID,PersonaID,LibroID")] Compra compra)
+        public ActionResult Edit([Bind(Include="CompraID,PersonaID,LibroID,cantidad")] Compra compra)
         {
             if (ModelState.IsValid)
             {
