@@ -21,6 +21,12 @@ namespace ProyectoCompra.Controllers
             return View(compras.ToList());
         }
 
+        public ActionResult Nuevo()
+        {
+            ViewBag.LibroID = new SelectList(db.Libroes, "LibroID", "nombre");
+            return View();
+        }
+
         // GET: /Compras/Details/5
         public ActionResult Details(int? id)
         {
