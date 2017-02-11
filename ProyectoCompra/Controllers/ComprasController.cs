@@ -27,6 +27,23 @@ namespace ProyectoCompra.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Nuevo([Bind(Include = "CompraID,PersonaID,LibroID,cantidad")] Compra compra)
+        {
+            if (ModelState.IsValid)
+            {
+                compra.PersonaID = 1;
+                db.Compras.Add(compra);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.LibroID = new SelectList(db.Libroes, "LibroID", "nombre", compra.LibroID);
+            return View(compra);
+
+        }
+
         // GET: /Compras/Details/5
         public ActionResult Details(int? id)
         {
