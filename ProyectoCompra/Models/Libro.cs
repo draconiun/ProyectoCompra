@@ -16,5 +16,7 @@ namespace ProyectoCompra.Models
 
         public virtual ICollection<Compra> Compras { get; set; }
 
+        public virtual Categoria Categoria { get; set; }
+
     }
 }
