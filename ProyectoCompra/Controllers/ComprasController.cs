@@ -35,15 +35,28 @@ namespace ProyectoCompra.Controllers
                     var lista_compras = compras.ToList();
 
                     List<Compra> oListCompra = new List<Compra>();
+                    List<Libro> oListLibro = new List<Libro>();
+                    List<Persona> oListPersona = new List<Persona>();
                     foreach (Compra compra in lista_compras)
                     {
                         Compra objCompra = new Compra();
                         objCompra.CompraID = compra.CompraID;
                         objCompra.LibroID = compra.LibroID;
+                        objCompra.PersonaID = compra.PersonaID;
+                        objCompra.cantidad = compra.cantidad;
+                        objCompra.GrupoID = compra.GrupoID;
                         oListCompra.Add(objCompra);
+                        Libro oLibro = new Libro();
+                        oLibro.LibroID = compra.LibroID;
+                        oLibro.nombre = compra.Libro.nombre;
+                        oListLibro.Add(oLibro);
+                        Persona oPersona = new Persona();
+                        oPersona.apellidoPaterno = compra.Persona.apellidoPaterno;
+                        oPersona.PersonaID = compra.PersonaID;
+                        oListPersona.Add(oPersona);
                     }
 
-                    return Json(new { Success = 1, resultado = oListCompra.Count, ex = "" });
+                    return Json(new { Success = 1, resultado = oListCompra,lib=oListLibro,per=oListPersona, ex = "" });
                 }
             }
             catch (Exception e)

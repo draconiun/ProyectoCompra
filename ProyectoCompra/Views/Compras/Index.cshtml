@@ -18,7 +18,24 @@
                 async: true,
                 success: function (result) {
                     alert("Holas");
-                    alert(result.resultado);
+                    var compras = result.resultado;
+                    var libros = result.lib;
+                    var pers = result.per;
+                    $("#tabla tr").remove();
+                    var fila = "<tr> <th>  nombre </th> <th> apellidoPaterno </th>  <th> cantidad </th> <th> GrupoID </th> <th></th> </tr>";
+                    for (var i = 0 ; i < compras.length ; i++) {
+                        fila += " <tr>";
+                        fila += "<td> " + libros[i].nombre + " </td>";
+                        fila += "<td> " + pers[i].apellidoPaterno + " </td>";
+                        fila += "<td> " + compras[i].cantidad + " </td>";
+                        fila += "<td> " + compras[i].GrupoID + " </td>";
+                        fila += "<td> <a href='/Compras/Edit/" + compras[i].CompraID + "'>Edit</a> | ";
+                        fila += " <a href='/Compras/Details/" + compras[i].CompraID + "'>Details</a> | ";
+                        fila += " <a href='/Compras/Delete/" + compras[i].CompraID + "'>Delete</a> </td>";
+                        fila += "</tr> ";
+                        alert(libros[i].nombre + " " + pers[i].apellidoPaterno + " " + compras[i].cantidad + " " + compras[i].GrupoID);
+                    }
+                    $("#tabla").append(fila);
                 }
             })
         });
@@ -39,7 +56,7 @@
         <a href="#" id="Filtrando" class="btn btn-default"> Filtrar </a>
     </div>
 </div>
-<table class="table">
+<table class="table" id="tabla">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Libro.nombre)
