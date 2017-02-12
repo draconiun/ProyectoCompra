@@ -7,9 +7,17 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#Nuevo").click(function () {
-           
-
-            alert("Hoy si");
+            alert("Entro");
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(LibroID = 1),
+                url: "@Url.Action("ListarLibro", "Compras")",
+                contentType: 'application/json;',
+                success: function (result) {
+                    alert(result.Success);
+                    alert(result.resultado);
+                }
+            })
         });
 
     });

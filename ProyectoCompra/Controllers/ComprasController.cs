@@ -28,7 +28,7 @@ namespace ProyectoCompra.Controllers
                 if (ModelState.IsValid)
                 {
                     Libro libro = db.Libroes.Find(compra.LibroID);
-                    return Json(new { Success = 1, resultado = libro, ex = "" });
+                    return Json(new { Success = 1, resultado = libro.nombre, ex = "" });
                 }
             }
             catch (Exception e)
