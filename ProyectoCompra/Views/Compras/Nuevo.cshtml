@@ -11,7 +11,6 @@
     $(document).ready(function () {
 
         $("#CategoriaID").change(function () {
-            alert("Entro");
             var parametros = new Object();
             parametros.CategoriaID = $("#CategoriaID").val();
             $.ajax({
@@ -22,11 +21,8 @@
                 dataType: "json",
                 async: true,
                 success: function (result) {
-                    alert("Me vine");
                     var libro = result.resultado;
                     var cantidad = libro.length;
-                    alert(result.resultado);
-                    alert(cantidad);
                     $("#LibroID option").remove();
                     for(var i=0 ; i < cantidad ; i++)
                     {
@@ -49,9 +45,14 @@
                 dataType: "json",
                 async: true,
                 success: function (result) {
-                    alert(result.Success);
-                    alert(result.resultado);
-                    $("#Detalle").html(result.resultado);
+                    alert("Holas");
+                    $("#Detalle p").remove();
+                    var nombre = "<p> NOMBRE: " + result.resultado.nombre + "</p>";
+                    var precio = "<p> PRECIO: " + result.resultado.precio + "</p>";
+                    var stock = "<p> STOCK: " + result.resultado.stock + "</p>";
+                    $("#Detalle").append(nombre);
+                    $("#Detalle").append(precio);
+                    $("#Detalle").append(stock);
                 }
             })
         });
@@ -80,13 +81,17 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Libro.LibroID, "LibroID", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("LibroID", oListSelectItemLibro)
             </div>
         </div>
         
-        <div class="form-group" id="Detalle">
+        <div class="form-group">
+            <p class="control-label col-md-2">Detalle de la pelicula </p>
+            <div class="col-md-10" id="Detalle">
 
+            </div>
         </div>
 
         <div class="form-group">
@@ -101,6 +106,21 @@
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" id="Nuevo" value="Nuevo" class="btn btn-default" />
             </div>
+        </div>
+
+        <div>
+            <table id="tableame">
+                <thead>
+                    <tr>
+                        <th>NOMBRE</th>
+                        <th>PRECIO</th>
+                        <th>STOCK</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
         </div>
     </div>
 }

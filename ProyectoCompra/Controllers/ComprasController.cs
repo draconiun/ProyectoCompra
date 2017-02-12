@@ -28,8 +28,19 @@ namespace ProyectoCompra.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Libro libro = db.Libroes.Find(LibroID);
-                    return Json(new { Success = 1, resultado = libro.nombre, ex = "" });
+                    var libros = (from p in db.Libroes select p).ToList();
+                    Libro objLibro = new Libro();
+                    foreach (Libro libro in libros)
+                    {
+                        Libro oLibro = new Libro();
+                        oLibro.LibroID = libro.LibroID;
+                        oLibro.nombre = libro.nombre;
+                        oLibro.precio = libro.precio;
+                        oLibro.stock = libro.stock;
+                        oLibro.CategoriaID = libro.CategoriaID;
+                        if (oLibro.LibroID == LibroID) objLibro = oLibro;
+                    }
+                    return Json(new { Success = 1, resultado = objLibro, ex = "" });
                 }
             }
             catch (Exception e)
