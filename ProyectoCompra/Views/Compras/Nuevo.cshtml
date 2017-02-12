@@ -8,11 +8,15 @@
     $(document).ready(function () {
         $("#Nuevo").click(function () {
             alert("Entro");
+            var parametros = new Object();
+            parametros.LibroID = 1;
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(LibroID = 1),
+                data: JSON.stringify(parametros),
                 url: "@Url.Action("ListarLibro", "Compras")",
                 contentType: 'application/json;',
+                dataType: "json",
+                async: true,
                 success: function (result) {
                     alert(result.Success);
                     alert(result.resultado);

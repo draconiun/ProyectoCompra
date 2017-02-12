@@ -21,13 +21,13 @@ namespace ProyectoCompra.Controllers
             return View(compras.ToList());
         }
 
-        public JsonResult ListarLibro(Compra compra)
+        public JsonResult ListarLibro(int LibroID)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Libro libro = db.Libroes.Find(compra.LibroID);
+                    Libro libro = db.Libroes.Find(LibroID);
                     return Json(new { Success = 1, resultado = libro.nombre, ex = "" });
                 }
             }
