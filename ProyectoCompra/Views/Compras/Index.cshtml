@@ -4,14 +4,40 @@
     ViewBag.Title = "Index";
 }
 
+<script>
+    $(document).ready(function () {
+        $("#Filtrando").click(function () {
+            var parametros = new Object();
+            parametros.filtrar = $("#filtra").val();
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(parametros),
+                url: "@Url.Action("ListarFiltrado", "Compras")",
+                contentType: 'application/json;',
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    alert("Holas");
+                    alert(result.resultado);
+                }
+            })
+        });
+    });
+</script>
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Agregar Carrito de Compra", "Nuevo")
 </p>
-<div>
-    <p>Filtrado: </p>
-    <input type="text" id="filtra"/>
+<div class="form-group">
+    <p class="control-label col-md-2">Filtrado: </p>
+    <div class="col-md-2">
+        <input type="text" id="filtra" />
+    </div>
+    <div class="col-md-6"> 
+        <a href="#" id="Filtrando" class="btn btn-default"> Filtrar </a>
+    </div>
 </div>
 <table class="table">
     <tr>
@@ -53,3 +79,9 @@
 }
 
 </table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery-1.10.2.min.js")
+}
+

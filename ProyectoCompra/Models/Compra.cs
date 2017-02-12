@@ -21,5 +21,6 @@ namespace ProyectoCompra.Models
         public virtual Persona Persona { get; set; }
         public virtual Libro Libro { get; set; }
         public virtual Grupo Grupo { get; set; }
+
     }
 }

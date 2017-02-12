@@ -22,6 +22,39 @@ namespace ProyectoCompra.Controllers
             return View(compras.ToList());
         }
 
+        public JsonResult ListarFiltrado(string filtrar)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var compras = (from b in db.Compras
+                                   join sa in db.Libroes on b.LibroID equals sa.LibroID
+                                   where b.Libro.nombre.StartsWith(filtrar)
+                                   select b);
+                    var lista_compras = compras.ToList();
+
+                    List<Compra> oListCompra = new List<Compra>();
+                    foreach (Compra compra in lista_compras)
+                    {
+                        Compra objCompra = new Compra();
+                        objCompra.CompraID = compra.CompraID;
+                        objCompra.LibroID = compra.LibroID;
+                        //objCompra.Libro.nombre = compra.Libro.nombre;
+                        objCompra.Libro.nombre = compra.Libro.nombre;
+                        oListCompra.Add(objCompra);
+                    }
+
+                    return Json(new { Success = 1, resultado = oListCompra.Count, ex = "" });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { Success = 0, ex = e.Message.ToString() });
+            }
+            return Json(new { Success = 0, ex = new Exception("No se pudo Crear Este Registro").Message.ToString() }); 
+        }
+
         public JsonResult ListarLibro(int LibroID)
         {
             try
