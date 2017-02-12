@@ -122,16 +122,11 @@ namespace ProyectoCompra.Controllers
                         oCompra.PersonaID = 1;
                         oCompra.LibroID = int.Parse( libros[i].ToString()) ;
                         oCompra.GrupoID = id;
-                        oCompra.cantidad = int.Parse(cantidades[i].ToString());
+                        oCompra.cantidad = int.Parse(cantidad_libro[i].ToString());
                         db.Compras.Add(oCompra);
                         db.SaveChanges();
                     }
-
-                        //var libros = db.Libroes.Where(x => x.Categoria.CategoriaID == CategoriaID);
-                        //int cantidadLista = libros.ToList().Count;
-
-
-                        return Json(new { Success = 1, resultado = "", ex = "" });
+                    return Json(new { Success = 1, resultado = "", ex = "" });
                 }
             }
             catch (Exception e)

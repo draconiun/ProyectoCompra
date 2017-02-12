@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.cantidad)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrupoID)
+        </th>
         <th></th>
     </tr>
 
@@ -34,6 +37,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.cantidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrupoID)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CompraID }) |

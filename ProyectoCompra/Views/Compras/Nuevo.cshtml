@@ -76,6 +76,8 @@
                     fila += "<td colspan='2'>" + $("#cantidad").val()+ "</td>";
                     fila += "</tr>";
                     $("#tableame tbody").append(fila);
+                    $("#cantidad").val("");
+                    $("#Detalle p").remove();
                 }
             })
 
@@ -111,7 +113,8 @@
                 dataType: "json",
                 async: true,
                 success: function (result) {
-                    alert("Ingresó");
+                    $("#tableame tbody tr").remove();
+                    $("#Detalle p").remove();
                     
                 }
             })
