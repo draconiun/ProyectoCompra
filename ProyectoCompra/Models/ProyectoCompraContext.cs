@@ -26,6 +26,8 @@ namespace ProyectoCompra.Models
         public System.Data.Entity.DbSet<ProyectoCompra.Models.Compra> Compras { get; set; }
 
         public System.Data.Entity.DbSet<ProyectoCompra.Models.Categoria> Categorias { get; set; }
+
+        public System.Data.Entity.DbSet<ProyectoCompra.Models.Grupo> Grupoes { get; set; }
     
     }
 }

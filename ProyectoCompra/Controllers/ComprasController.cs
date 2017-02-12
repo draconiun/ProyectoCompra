@@ -86,7 +86,7 @@ namespace ProyectoCompra.Controllers
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Nuevo([Bind(Include = "CompraID,PersonaID,LibroID,cantidad")] Compra compra)
         {
@@ -100,7 +100,45 @@ namespace ProyectoCompra.Controllers
 
             ViewBag.LibroID = new SelectList(db.Libroes, "LibroID", "nombre", compra.LibroID);
             return View(compra);
+        }*/
 
+        public JsonResult Nuevo_Registro(string cadena,string cantidades)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    String[] libros = cadena.Split(' ');
+                    String[] cantidad_libro = cantidades.Split(' ');
+
+                    Grupo oGrupo=new Grupo();
+                    oGrupo.descripcion ="Nuevo Grupo";
+                    db.Grupoes.Add(oGrupo);
+                    db.SaveChanges();
+                    int id = oGrupo.GrupoID;
+                    for (int i = 0; i < libros.Length-1;i++ )
+                    {
+                        Compra oCompra = new Compra();
+                        oCompra.PersonaID = 1;
+                        oCompra.LibroID = int.Parse( libros[i].ToString()) ;
+                        oCompra.GrupoID = id;
+                        oCompra.cantidad = int.Parse(cantidades[i].ToString());
+                        db.Compras.Add(oCompra);
+                        db.SaveChanges();
+                    }
+
+                        //var libros = db.Libroes.Where(x => x.Categoria.CategoriaID == CategoriaID);
+                        //int cantidadLista = libros.ToList().Count;
+
+
+                        return Json(new { Success = 1, resultado = "", ex = "" });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { Success = 0, ex = e.Message.ToString() });
+            }
+            return Json(new { Success = 0, ex = new Exception("No se pudo Crear Este Registro").Message.ToString() }); 
         }
 
         // GET: /Compras/Details/5

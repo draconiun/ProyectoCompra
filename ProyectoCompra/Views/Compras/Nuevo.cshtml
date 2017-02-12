@@ -70,11 +70,49 @@
                 success: function (result) {
                     alert("Holas");
                     var fila = "<tr>";
+                    fila += "<td colspan='2' style='display:none;'>" + $("#LibroID").val() + "</td>";
                     fila += "<td colspan='2'>" + result.resultado.nombre + "</td>";
                     fila += "<td colspan='2'>" + result.resultado.precio + "</td>";
                     fila += "<td colspan='2'>" + $("#cantidad").val()+ "</td>";
                     fila += "</tr>";
                     $("#tableame tbody").append(fila);
+                }
+            })
+
+
+        });
+
+        $("#Nuevo").click(function () {
+
+            var parametros = new Object();
+            var cadena = "";
+            var cantidades = "";
+
+            $("#tableame tbody tr").find('td:eq(0)').each(function () {
+
+                valor = $(this).html();
+                cadena += valor + " ";
+            })
+
+            $("#tableame tbody tr").find('td:eq(3)').each(function () {
+
+                valor = $(this).html();
+                cantidades += valor + " ";
+            })
+
+            parametros.cadena = cadena;
+            parametros.cantidades = cantidades;
+            alert(cadena);
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(parametros),
+                url: "@Url.Action("Nuevo_Registro", "Compras")",
+                contentType: 'application/json;',
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    alert("Ingresó");
+                    
                 }
             })
         });
@@ -126,7 +164,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <a href="#" id="Agregar"> Agregar</a>
+                <a href="#" id="Agregar" class="btn btn-default"> Agregar</a>
                 <!--<input type="submit"  id="Agregar" value="Agregar" class="btn btn-default" />-->
             </div>
         </div>
@@ -146,7 +184,8 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" id="Nuevo" value="Nuevo" class="btn btn-default" />
+                    <a href="#" id="Nuevo" class="btn btn-default"> Guardar</a>
+                    <!--<input type="submit" id="Nuevo" value="Nuevo" class="btn btn-default" />-->
                 </div>
             </div>
 
