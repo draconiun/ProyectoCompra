@@ -38,9 +38,29 @@ namespace ProyectoCompra.Controllers
             return Json(new { Success = 0, ex = new Exception("No se pudo Crear Este Registro").Message.ToString() }); 
         }
 
+        public JsonResult ListarCategoriaById(int CategoriaID)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    
+                    var categoria = db.Categorias.Include("Libro").Where(x => x.CategoriaID == CategoriaID);
+                    int cantidadLista = categoria.ToList().Count;
+                    return Json(new { Success = 1, resultado = categoria.ToList(), cantidad = cantidadLista, ex = "" });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { Success = 0, ex = e.Message.ToString() });
+            }
+            return Json(new { Success = 0, ex = new Exception("No se pudo Crear Este Registro").Message.ToString() }); 
+        }
+
         public ActionResult Nuevo()
         {
-            ViewBag.LibroID = new SelectList(db.Libroes, "LibroID", "nombre");
+            //ViewBag.LibroID = new SelectList(db.Libroes, "LibroID", "nombre");
+            ViewBag.CategoriaID = new SelectList(db.Categorias, "CategoriaID", "nombre");
             return View();
         }
 
