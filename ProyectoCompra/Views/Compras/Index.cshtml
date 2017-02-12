@@ -17,7 +17,6 @@
                 dataType: "json",
                 async: true,
                 success: function (result) {
-                    alert("Holas");
                     var compras = result.resultado;
                     var libros = result.lib;
                     var pers = result.per;
@@ -33,7 +32,6 @@
                         fila += " <a href='/Compras/Details/" + compras[i].CompraID + "'>Details</a> | ";
                         fila += " <a href='/Compras/Delete/" + compras[i].CompraID + "'>Delete</a> </td>";
                         fila += "</tr> ";
-                        alert(libros[i].nombre + " " + pers[i].apellidoPaterno + " " + compras[i].cantidad + " " + compras[i].GrupoID);
                     }
                     $("#tabla").append(fila);
                 }

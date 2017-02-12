@@ -102,7 +102,6 @@
 
             parametros.cadena = cadena;
             parametros.cantidades = cantidades;
-            alert(cadena);
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(parametros),
@@ -119,9 +118,7 @@
         });
 
         $(document).on("click", ".eliminar", function (e) {
-            alert("Entró");
             var fila = $(this);
-            //alert(fila);
             var parent = fila.parent().parent();
             parent.remove();
         });
