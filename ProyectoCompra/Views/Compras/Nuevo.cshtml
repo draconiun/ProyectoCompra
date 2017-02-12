@@ -56,6 +56,28 @@
                 }
             })
         });
+
+        $("#Agregar").click(function () {
+            var parametros = new Object();
+            parametros.LibroID = $("#LibroID").val();
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(parametros),
+                url: "@Url.Action("ListarLibro", "Compras")",
+                contentType: 'application/json;',
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    alert("Holas");
+                    var fila = "<tr>";
+                    fila += "<td colspan='2'>" + result.resultado.nombre + "</td>";
+                    fila += "<td colspan='2'>" + result.resultado.precio + "</td>";
+                    fila += "<td colspan='2'>" + $("#cantidad").val()+ "</td>";
+                    fila += "</tr>";
+                    $("#tableame tbody").append(fila);
+                }
+            })
+        });
     });
 </script>
 
@@ -104,25 +126,31 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="Nuevo" value="Nuevo" class="btn btn-default" />
+                <a href="#" id="Agregar"> Agregar</a>
+                <!--<input type="submit"  id="Agregar" value="Agregar" class="btn btn-default" />-->
             </div>
         </div>
 
-        <div>
-            <table id="tableame">
+        <div class="form-group">
+            <table id="tableame" class="table-responsive">
                 <thead>
                     <tr>
-                        <th>NOMBRE</th>
-                        <th>PRECIO</th>
-                        <th>STOCK</th>
+                        <th colspan="2">NOMBRE</th>
+                        <th colspan="2">PRECIO</th>
+                        <th colspan="2">STOCK</th>
                     </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
-    </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="Nuevo" value="Nuevo" class="btn btn-default" />
+                </div>
+            </div>
+
+        </div>
 }
 
 <div>
