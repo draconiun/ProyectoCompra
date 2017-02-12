@@ -34,7 +34,6 @@
         });
 
         $("#LibroID").change(function () {
-            alert("Entro");
             var parametros = new Object();
             parametros.LibroID = $("#LibroID").val();
             $.ajax({
@@ -45,7 +44,6 @@
                 dataType: "json",
                 async: true,
                 success: function (result) {
-                    alert("Holas");
                     $("#Detalle p").remove();
                     var nombre = "<p> NOMBRE: " + result.resultado.nombre + "</p>";
                     var precio = "<p> PRECIO: " + result.resultado.precio + "</p>";
@@ -68,12 +66,12 @@
                 dataType: "json",
                 async: true,
                 success: function (result) {
-                    alert("Holas");
                     var fila = "<tr>";
                     fila += "<td colspan='2' style='display:none;'>" + $("#LibroID").val() + "</td>";
                     fila += "<td colspan='2'>" + result.resultado.nombre + "</td>";
                     fila += "<td colspan='2'>" + result.resultado.precio + "</td>";
-                    fila += "<td colspan='2'>" + $("#cantidad").val()+ "</td>";
+                    fila += "<td colspan='2'>" + $("#cantidad").val() + "</td>";
+                    fila += "<td colspan='2'> <a href='#' class='eliminar btn btn-default'> Eliminar </a> </td>";
                     fila += "</tr>";
                     $("#tableame tbody").append(fila);
                     $("#cantidad").val("");
@@ -119,6 +117,15 @@
                 }
             })
         });
+
+        $(document).on("click", ".eliminar", function (e) {
+            alert("Entró");
+            var fila = $(this);
+            //alert(fila);
+            var parent = fila.parent().parent();
+            parent.remove();
+        });
+
     });
 </script>
 
