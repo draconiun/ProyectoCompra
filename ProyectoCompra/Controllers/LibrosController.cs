@@ -17,7 +17,8 @@ namespace ProyectoCompra.Controllers
         // GET: /Libros/
         public ActionResult Index()
         {
-            return View(db.Libroes.ToList());
+            var libroes = db.Libroes.Include(l => l.Categoria);
+            return View(libroes.ToList());
         }
 
         // GET: /Libros/Details/5
@@ -38,6 +39,7 @@ namespace ProyectoCompra.Controllers
         // GET: /Libros/Create
         public ActionResult Create()
         {
+            ViewBag.CategoriaID = new SelectList(db.Categorias, "CategoriaID", "nombre");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace ProyectoCompra.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="LibroID,nombre,stock,precio")] Libro libro)
+        public ActionResult Create([Bind(Include="LibroID,nombre,stock,precio,CategoriaID")] Libro libro)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace ProyectoCompra.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.CategoriaID = new SelectList(db.Categorias, "CategoriaID", "nombre", libro.CategoriaID);
             return View(libro);
         }
 
@@ -70,6 +73,7 @@ namespace ProyectoCompra.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CategoriaID = new SelectList(db.Categorias, "CategoriaID", "nombre", libro.CategoriaID);
             return View(libro);
         }
 
@@ -78,7 +82,7 @@ namespace ProyectoCompra.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="LibroID,nombre,stock,precio")] Libro libro)
+        public ActionResult Edit([Bind(Include="LibroID,nombre,stock,precio,CategoriaID")] Libro libro)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace ProyectoCompra.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CategoriaID = new SelectList(db.Categorias, "CategoriaID", "nombre", libro.CategoriaID);
             return View(libro);
         }
 

@@ -24,12 +24,14 @@
                 success: function (result) {
                     alert("Me vine");
                     var libro = result.resultado;
-                    var len = result.cantidad;
-                    alert(result.cantidad);
+                    var cantidad = libro.length;
+                    alert(result.resultado);
+                    alert(cantidad);
                     $("#LibroID option").remove();
-                    for(var i=0 ; i < len ; i++)
+                    for(var i=0 ; i < cantidad ; i++)
                     {
-                        fillcbo("LibroID", libro[i].LibroID, libro[i].nombre);
+                        var opcion = '<option value="' + libro[i].LibroID + '">' + libro[i].nombre + '</option>'
+                        $("#LibroID").append(opcion);
                     }
                 }
             })

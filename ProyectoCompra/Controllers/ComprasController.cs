@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoCompra.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace ProyectoCompra.Controllers
 {
@@ -44,10 +45,20 @@ namespace ProyectoCompra.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                    var categoria = db.Categorias.Include("Libro").Where(x => x.CategoriaID == CategoriaID);
-                    int cantidadLista = categoria.ToList().Count;
-                    return Json(new { Success = 1, resultado = categoria.ToList(), cantidad = cantidadLista, ex = "" });
+                    //var libros = db.Libroes.Where(x => x.Categoria.CategoriaID == CategoriaID);
+                    //int cantidadLista = libros.ToList().Count;
+                    var datos = (from p in db.Libroes select p).ToList();
+                    List<Libro> oListLibros = new List<Libro>();
+                    foreach (Libro libro in datos)
+                    {
+                        Libro oLibro = new Libro();
+                        oLibro.LibroID = libro.LibroID;
+                        oLibro.nombre = libro.nombre;
+                        oLibro.CategoriaID = libro.CategoriaID;
+                        if(oLibro.CategoriaID==CategoriaID) oListLibros.Add(oLibro);
+                    }
+
+                    return Json(new { Success = 1, resultado = oListLibros, ex = "" });
                 }
             }
             catch (Exception e)

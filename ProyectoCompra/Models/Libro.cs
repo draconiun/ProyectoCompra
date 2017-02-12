@@ -14,6 +14,8 @@ namespace ProyectoCompra.Models
         public int stock { get; set; }
         public decimal precio { get; set; }
 
+        public int CategoriaID { get; set; }
+
         public virtual ICollection<Compra> Compras { get; set; }
 
         public virtual Categoria Categoria { get; set; }
