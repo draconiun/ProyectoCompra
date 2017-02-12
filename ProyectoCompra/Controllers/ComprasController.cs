@@ -40,8 +40,6 @@ namespace ProyectoCompra.Controllers
                         Compra objCompra = new Compra();
                         objCompra.CompraID = compra.CompraID;
                         objCompra.LibroID = compra.LibroID;
-                        //objCompra.Libro.nombre = compra.Libro.nombre;
-                        objCompra.Libro.nombre = compra.Libro.nombre;
                         oListCompra.Add(objCompra);
                     }
 
