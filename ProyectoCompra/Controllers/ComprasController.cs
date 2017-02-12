@@ -21,6 +21,23 @@ namespace ProyectoCompra.Controllers
             return View(compras.ToList());
         }
 
+        public JsonResult ListarLibro(Compra compra)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Libro libro = db.Libroes.Find(compra.LibroID);
+                    return Json(new { Success = 1, resultado = libro, ex = "" });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { Success = 0, ex = e.Message.ToString() });
+            }
+            return Json(new { Success = 0, ex = new Exception("No se pudo Crear Este Registro").Message.ToString() }); 
+        }
+
         public ActionResult Nuevo()
         {
             ViewBag.LibroID = new SelectList(db.Libroes, "LibroID", "nombre");
